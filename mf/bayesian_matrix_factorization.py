@@ -120,9 +120,9 @@ class BayesianMatrixFactorization(Base):
         norm_X_bar = X_bar - self.mu_item
         # print 'norm_X_bar', norm_X_bar.shape
 
-        WI_post = self.WI_item + N * S_bar + \
+        WI_post = inv(inv(self.WI_item) + N * S_bar + \
             np.dot(norm_X_bar, norm_X_bar.T) * \
-            (N * self.beta_item) / (self.beta_item + N)
+            (N * self.beta_item) / (self.beta_item + N))
         # print 'WI_post', WI_post.shape
 
         # Not sure why we need this...
@@ -154,9 +154,9 @@ class BayesianMatrixFactorization(Base):
         norm_X_bar = X_bar - self.mu_user
         # print 'norm_X_bar', norm_X_bar.shape
 
-        WI_post = self.WI_user + N * S_bar + \
+        WI_post = inv(inv(self.WI_user) + N * S_bar + \
             np.dot(norm_X_bar, norm_X_bar.T) * \
-            (N * self.beta_user) / (self.beta_user + N)
+            (N * self.beta_user) / (self.beta_user + N))
         # print 'WI_post', WI_post.shape
 
         # Not sure why we need this...
